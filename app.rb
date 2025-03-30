@@ -2,6 +2,7 @@ require 'sinatra'
 require 'slim'
 require 'sqlite3'
 require 'sinatra/reloader'
+require 'bcrypt'
 
 
 get('/')  do
@@ -58,8 +59,23 @@ get('/products/:id/edit') do
   slim(:"products/edit",locals:{result:result})
 end
 
-get('/loggain') do
-  slim(:"login")
+get('/registrera') do
+  slim(:"register")
+end
+
+post('/users/new') do
+    username = params[:username]
+    password = params[:password]
+    password_confirm = params[:password_confirm]
+
+    if (password == password_confirm)
+        password_digest = BCrypt::Password.create(password)
+        db = SQLite3::Database.new("db/chinook-crud.db")
+        db.execute("INSERT INTO users (username,pwdigest) VALUES (?,?)",[username,password_digest])
+        redirect('/registrera')
+    else
+        "Lösenorden matchade inte"
+    end
 end
 
 get('/products/:id') do
