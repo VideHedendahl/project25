@@ -4,6 +4,7 @@ require 'sqlite3'
 require 'sinatra/reloader'
 require 'bcrypt'
 
+enable :sessions
 
 get('/')  do
   slim(:start)
@@ -75,6 +76,28 @@ post('/users/new') do
         redirect('/registrera')
     else
         "Lösenorden matchade inte"
+    end
+end
+
+get('/loggain') do
+    slim(:"login")
+end
+
+post('/login') do
+    username = params[:username]
+    password = params[:password]
+
+    db = SQLite3::Database.new("db/chinook-crud.db")
+    db.results_as_hash = true
+    result = db.execute("SELECT * FROM users WHERE username = ?",username).first
+    pwdigest = result["pwdigest"]
+    id = result["id"]
+
+    if BCrypt::Password.new(pwdigest) == password
+        session[:id] = id
+        redirect('/')
+    else
+        "FEL LÖSEN"
     end
 end
 
