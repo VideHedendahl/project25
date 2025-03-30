@@ -57,7 +57,7 @@ get('/products/:id/edit') do
   db = SQLite3::Database.new("db/chinook-crud.db")
   db.results_as_hash = true
   result = db.execute("SELECT * FROM albums WHERE AlbumId = ?",id).first
-  slim(:"products/edit",locals:{result:result})
+  slim(:"products/edit",locals:{result:result,id:id})
 end
 
 get('/registrera') do
