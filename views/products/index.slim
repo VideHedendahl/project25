@@ -1,0 +1,11 @@
+h1 All products
+
+ol
+  - albums.each do |album|
+    li 
+      a href="/products/#{album['AlbumId']}" #{album["Title"]}
+      a href="/products/#{album['AlbumId']}/edit" Uppdatera
+      form method="POST" action="products/#{album['AlbumId']}/delete"
+        input type="submit" value="Delete"
+      
+          
