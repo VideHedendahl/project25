@@ -5,7 +5,7 @@ ol
     li 
       a href="/products/#{album['AlbumId']}" #{album["Title"]}
       a href="/products/#{album['AlbumId']}/edit" Uppdatera
-      form action="/products/#{album['AlbumId']}/delete" method="POST"
-        input type="submit" value="Delete"
+      form action="/products/#{album['AlbumId']}/save" method="POST"
+        input type="submit" value="Save"
       
           

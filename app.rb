@@ -14,7 +14,7 @@ get('/products') do
   db = SQLite3::Database.new("db/chinook-crud.db")
   db.results_as_hash = true
   result = db.execute("SELECT * FROM albums")
-  p result
+  #p result
   slim(:"products/index",locals:{albums:result})
 end
 
@@ -40,6 +40,19 @@ post('/products/:id/delete') do
   id = params[:id].to_i
   db = SQLite3::Database.new("db/chinook-crud.db")
   db.execute("DELETE FROM albums WHERE AlbumId = ?",id)
+  redirect('/products')
+end
+
+post('/products/:id/save') do
+  albums_id = params[:id].to_i
+  user_id = session[:id]
+
+  if user_id == nil
+    redirect('/products')
+  end
+
+  db = SQLite3::Database.new("db/chinook-crud.db")
+  db.execute("INSERT INTO saved (id, product) VALUES (?,?)",[user_id, albums_id])
   redirect('/products')
 end
 
