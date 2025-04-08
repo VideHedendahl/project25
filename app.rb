@@ -19,9 +19,12 @@ get('/products') do
 end
 
 get('/products/saved') do
+  user_id = session[:id]
   db = SQLite3::Database.new("db/chinook-crud.db")
   db.results_as_hash = true
-  slim(:"products/savedindex")
+  result = db.execute("SELECT * FROM albums")
+  result2 = db.execute("SELECT * FROM saved")
+  slim(:"products/savedindex",locals:{albums:result,saved:result2,user_id:user_id})
 end
 
 get('/products/new') do

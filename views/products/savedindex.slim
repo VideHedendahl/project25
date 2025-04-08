@@ -1,1 +1,12 @@
-h1 sparade produkter
+h1 All saved products
+
+ol
+    - saved.each do |saved|
+        - if user_id == saved['id']
+            - albums.each do |album|
+                - if saved['product'] == album['AlbumId']
+                    li
+                        a href="/products/#{album['AlbumId']}" #{album["Title"]}
+                        a href="/products/#{album['AlbumId']}/edit" Uppdatera
+                        form action="/products/#{album['AlbumId']}/save" method="POST"
+                            input type="submit" value="Save"
