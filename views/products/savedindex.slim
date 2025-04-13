@@ -1,4 +1,4 @@
-h1 All saved products
+h1 Alla sparade produkter
 
 ol
   - saved.each do |saved_row|
@@ -8,4 +8,4 @@ ol
           li
             a href="/products/#{album['AlbumId']}" #{album["Title"]}
             form action="/saved/#{saved_row['row_number']}/delete" method="POST"
-              input type="submit" value="Delete"
+              input type="submit" value="Ta bort"

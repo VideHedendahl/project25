@@ -11,11 +11,16 @@ get('/')  do
 end
 
 get('/products') do
+  user_id = session[:id]
   db = SQLite3::Database.new("db/chinook-crud.db")
   db.results_as_hash = true
   result = db.execute("SELECT * FROM albums")
-  #p result
-  slim(:"products/index",locals:{albums:result})
+ 
+  if user_id == nil
+    slim(:"products/indexoutlog",locals:{albums:result})
+  else
+    slim(:"products/index",locals:{albums:result})
+  end
 end
 
 get('/products/saved') do
@@ -34,7 +39,13 @@ get('/products/saved') do
 end
 
 get('/products/new') do
-  slim(:"products/new")
+  user_id = session[:id]
+
+  if user_id == nil
+    slim(:"InlgEror")
+  else
+    slim(:"products/new")
+  end
 end
 
 post('/products/new') do

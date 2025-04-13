@@ -1,0 +1,6 @@
+h1 Alla produkter
+
+ol
+  - albums.each do |album|
+    li 
+      a href="/products/#{album['AlbumId']}" #{album["Title"]}
