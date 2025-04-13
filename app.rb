@@ -131,6 +131,11 @@ post('/login') do
     end
 end
 
+post('/logout') do
+  session[:id] = nil
+  redirect('/')
+end
+
 get('/products/:id') do
   id = params[:id].to_i
   db = SQLite3::Database.new("db/chinook-crud.db")
