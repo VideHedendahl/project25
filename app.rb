@@ -65,6 +65,14 @@ post('/products/:id/save') do
   redirect('/products')
 end
 
+post('/saved/:row_number/delete') do
+  row_number = params[:row_number].to_i
+
+  db = SQLite3::Database.new("db/chinook-crud.db")
+  db.execute("DELETE FROM saved WHERE row_number = ?", [row_number])
+  redirect('/products/saved')
+end
+
 post('/products/:id/update') do
   id = params[:id].to_i
   title = params[:title]
