@@ -14,12 +14,12 @@ get('/products') do
   user_id = session[:id]
   db = SQLite3::Database.new("db/chinook-crud.db")
   db.results_as_hash = true
-  result = db.execute("SELECT * FROM albums")
+  result = db.execute("SELECT * FROM products")
  
   if user_id == nil
-    slim(:"products/indexoutlog",locals:{albums:result})
+    slim(:"products/indexoutlog",locals:{products:result})
   else
-    slim(:"products/index",locals:{albums:result})
+    slim(:"products/index",locals:{products:result})
   end
 end
 
@@ -28,13 +28,13 @@ get('/products/saved') do
 
   db = SQLite3::Database.new("db/chinook-crud.db")
   db.results_as_hash = true
-  result = db.execute("SELECT * FROM albums")
+  result = db.execute("SELECT * FROM products")
   result2 = db.execute("SELECT * FROM saved")
   
   if user_id == nil
     slim(:"InlgEror")
   else
-    slim(:"products/savedindex",locals:{albums:result,saved:result2,user_id:user_id})
+    slim(:"products/savedindex",locals:{products:result,saved:result2,user_id:user_id})
   end
 end
 
@@ -50,21 +50,21 @@ end
 
 post('/products/new') do
   title = params[:title]
-  artist_id = params[:artist_id].to_i
+  company_id = params[:company_id].to_i
   db = SQLite3::Database.new("db/chinook-crud.db")
-  db.execute("INSERT INTO albums (Title, ArtistId) VALUES (?,?)",[title, artist_id])
+  db.execute("INSERT INTO products (Title, CompanyId) VALUES (?,?)",[title, company_id])
   redirect('/products')
 end
 
 post('/products/:id/delete') do
   id = params[:id].to_i
   db = SQLite3::Database.new("db/chinook-crud.db")
-  db.execute("DELETE FROM albums WHERE AlbumId = ?",id)
+  db.execute("DELETE FROM products WHERE ProductsId = ?",id)
   redirect('/products')
 end
 
 post('/products/:id/save') do
-  albums_id = params[:id].to_i
+  products_id = params[:id].to_i
   user_id = session[:id]
 
   if user_id == nil
@@ -72,7 +72,7 @@ post('/products/:id/save') do
   end
 
   db = SQLite3::Database.new("db/chinook-crud.db")
-  db.execute("INSERT INTO saved (id, product) VALUES (?,?)",[user_id, albums_id])
+  db.execute("INSERT INTO saved (id, product) VALUES (?,?)",[user_id, products_id])
   redirect('/products')
 end
 
@@ -87,9 +87,9 @@ end
 post('/products/:id/update') do
   id = params[:id].to_i
   title = params[:title]
-  artist_id = params[:ArtistId].to_i
+  company_id = params[:CompanyId].to_i
   db = SQLite3::Database.new("db/chinook-crud.db")
-  db.execute("UPDATE albums SET Title=?,ArtistId=? WHERE AlbumId = ?",[title, artist_id, id])
+  db.execute("UPDATE products SET Title=?,CompanyId=? WHERE ProductsId = ?",[title, company_id, id])
   redirect('/products')
 end
 
@@ -97,7 +97,7 @@ get('/products/:id/edit') do
   id = params[:id].to_i
   db = SQLite3::Database.new("db/chinook-crud.db")
   db.results_as_hash = true
-  result = db.execute("SELECT * FROM albums WHERE AlbumId = ?",id).first
+  result = db.execute("SELECT * FROM products WHERE ProductsId = ?",id).first
   slim(:"products/edit",locals:{result:result,id:id})
 end
 
@@ -151,8 +151,8 @@ get('/products/:id') do
   id = params[:id].to_i
   db = SQLite3::Database.new("db/chinook-crud.db")
   db.results_as_hash = true
-  result = db.execute("SELECT * FROM albums WHERE AlbumId = ?",id).first
-  result2 = db.execute("SELECT Name FROM Artists WHERE ArtistID IN (SELECT ArtistId FROM Albums WHERE AlbumId = ?)",id).first
+  result = db.execute("SELECT * FROM products WHERE ProductsId = ?",id).first
+  result2 = db.execute("SELECT Name FROM companies WHERE CompanyID IN (SELECT CompanyId FROM products WHERE ProductsId = ?)",id).first
   slim(:"products/show",locals:{result:result,result2:result2})
 end
 

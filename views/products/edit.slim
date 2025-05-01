@@ -1,6 +1,6 @@
-form action="/products/#{result['AlbumId']}/update" method="post"
+form action="/products/#{result['ProductsId']}/update" method="post"
     input type="text" name="title" value="#{result['Title']}"
-    input type="hidden" name="ArtistId" value="#{result['ArtistId']}"
+    input type="hidden" name="CompanyId" value="#{result['CompanyId']}"
     input type="submit" value="updatera!"
 form action="/products/#{id}/delete" method="POST"
     input type="submit" value="Ta bort"
