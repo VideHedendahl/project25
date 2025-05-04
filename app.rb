@@ -57,10 +57,13 @@ end
 post('/products/new') do
   title = params[:title]
   company_id = params[:company_id].to_i
-
-
-  
   db = connect_to_db('db/chinook-crud.db')
+
+  company_check = db.execute("SELECT * FROM companies WHERE CompanyId = ?", company_id).first
+  if company_check.nil?
+    return "Fel: Leverantör med ID #{company_id} finns inte."
+  end
+
   db.execute("INSERT INTO products (Title, CompanyId) VALUES (?,?)",[title, company_id])
   redirect('/products')
 end
