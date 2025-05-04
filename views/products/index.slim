@@ -1,11 +1,13 @@
-h1 Alla produkter
+.div class="container"
+  h1 Alla produkter
 
-ol
-  - products.each do |product|
-    li 
-      a href="/products/#{product['ProductsId']}" #{product["Title"]}
-      a href="/products/#{product['ProductsId']}/edit" Uppdatera
-      form action="/products/#{product['ProductsId']}/save" method="POST"
-        input type="submit" value="Spara i varukorgen"
-      
-          
+  /- Lista alla produkter med länkar till detaljer, redigering och spara-funktion
+  ol
+    - products.each do |product|
+      li 
+        a href="/products/#{product['ProductsId']}" #{product["Title"]}
+        a href="/products/#{product['ProductsId']}/edit" Uppdatera
+
+        /- Formulär för att spara produkten i varukorgen
+        form action="/products/#{product['ProductsId']}/save" method="POST"
+          input type="submit" value="Spara i varukorgen"

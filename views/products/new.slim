@@ -1,12 +1,15 @@
-form action="/products/new" method="post"
-    input type="text" name="title" placeholder="Titel på produkt"
-    input type="text" name="company_id" placeholder="id för leverantör"
-    input type="submit" value="Skapa produkt"
+.div class="container"
+   /- Formulär för att skapa en ny produkt. Användaren matar in titel och företagets ID.
+   form action="/products/new" method="post"
+      input type="text" name="title" placeholder="Titel på produkt"
+      input type="text" name="company_id" placeholder="id för leverantör"
+      input type="submit" value="Skapa produkt"
 
-h1 leverantörer:
-    
-ol
-   - companies.each do |company|
-      li 
-         p Leverantör: #{company['Name']}
-         p ID: #{company['CompanyId']}
+   h1 leverantörer:
+      
+   /- Lista över tillgängliga leverantörer som hjälp vid inmatning
+   ol
+      - companies.each do |company|
+         li 
+            p Leverantör: #{company['Name']}
+            p ID: #{company['CompanyId']}

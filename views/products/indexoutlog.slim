@@ -1,6 +1,8 @@
-h1 Alla produkter
+.div class="container"
+  h1 Alla produkter
 
-ol
-  - products.each do |product|
-    li 
-      a href="/products/#{product['ProductsId']}" #{product["Title"]}
+  /- Visa endast produktlänkar (för utloggade användare)
+  ol
+    - products.each do |product|
+      li 
+        a href="/products/#{product['ProductsId']}" #{product["Title"]}

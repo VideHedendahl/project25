@@ -1,7 +1,9 @@
-h1 registrera dig
+.div class="container"
+    h1 registrera dig
 
-form action="users/new" method="POST"
-    input type="text" name="username" placeholder="Användarnamn"
-    input type="password" name="password_confirm" placeholder="Lösenord"
-    input type="password" name="password" placeholder="Bäktefta lösenord"
-    input type="submit" value="Registrera ny användare"/
+    /- Formulär för att skapa ett nytt användarkonto
+    form action="users/new" method="POST"
+        input type="text" name="username" placeholder="Användarnamn"
+        input type="password" name="password_confirm" placeholder="Lösenord"
+        input type="password" name="password" placeholder="Bäktefta lösenord"
+        input type="submit" value="Registrera ny användare"/

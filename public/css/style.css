@@ -1,48 +1,125 @@
+/* === ROOT VARIABLER === */
+/* Här definieras återanvändbara värden (färger, mått, effekter) som används i hela stilen */
 :root {
-    --magic-number:2vw;
+  --magic-margin: 2vw;                  /* Dynamisk marginal för rubriker */
+  --accent-color: #4a90e2;              /* Primär accentfärg för knappar och länkar */
+  --light-bg: #f9f9f9;                  /* Bakgrundsfärg för hela sidan */
+  --dark-text: #222;                    /* Standard textfärg */
+  --nav-height: 80px;                   /* Standardhöjd för navigation */
+  --transition-speed: 0.3s;             /* Standardövergångstid för animationer */
+  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Standard skugga för boxar */
 }
 
-
-body{
-  margin:0;
-  font-family:Arial, Helvetica, sans-serif;
-  font-weight:500;
-  position:relative;
+/* === GRUNDSTILAR === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Läsbar sans-serif font */
+  background-color: var(--light-bg);    /* Ljus bakgrund */
+  color: var(--dark-text);              /* Mörk textfärg */
+  font-weight: 400;
+  line-height: 1.6;                     /* Behaglig radavstånd för läsbarhet */
 }
 
-
+/* === NAVIGATION === */
 nav {
-  height:100px;
-  background:rgba(80,80,80,0.2);
-  display:flex;
-  justify-content: space-around;
-  align-items:center;
+  height: var(--nav-height);            /* Navigationens höjd */
+  background-color: rgb(21, 19, 19);    /* Mörk bakgrund */
+  display: flex;
+  justify-content: space-between;      /* Jämn fördelning av menyinnehåll */
+  align-items: center;
+  padding: 0 5vw;                       /* Vänster/höger padding */
+  box-shadow: var(--shadow);           /* Subtil skugga för djup */
+  position: sticky;                    /* Fast i toppen vid scroll */
+  top: 0;
+  z-index: 100;                        /* Prioritet framför andra element */
 }
 
-
-nav a, nav a:link {
-  color:black;
-  text-decoration:none;
-  text-transform:uppercase;
-  font-size:1.2em;
-  font-weight:900;
-  opacity:0,5;
+nav a {
+  color: var(--dark-text);              /* Standardfärg för länkar */
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 10px;
+  transition: color var(--transition-speed); /* Mjuk färgövergång vid hover */
 }
 
-
-h1 {
-  margin:var(--magic-number);
+nav a:hover {
+  color: var(--accent-color);           /* Färgändring vid hover */
 }
 
-
-a, form {
-  display:inline-block;
-  margin:10px;
+/* === RUBRIKER === */
+h1, h2, h3 {
+  margin: var(--magic-margin) 0;        /* Dynamiska marginaler */
+  color: var(--dark-text);              /* Mörk text för rubriker */
 }
 
+/* === FORMULÄR === */
+form {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;               /* Stapla inputs vertikalt */
+  gap: 10px;                            /* Mellanrum mellan fält */
+  max-width: 400px;                     /* Begränsad bredd */
+}
 
-h1, p {
-  display: block !important;
-  visibility: visible !important;
-  color: black !important;
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+input[type="submit"] {
+  background-color: var(--accent-color); /* Accentfärg för knappen */
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color var(--transition-speed); /* Hover-effekt */
+}
+
+input[type="submit"]:hover {
+  background-color: #357ab8;           /* Mörkare ton vid hover */
+}
+
+/* === LISTOR === */
+ol, ul {
+  padding: 0;
+  list-style-type: none;               /* Tar bort punktlistor */
+}
+
+li {
+  background-color: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;                   /* Rundade hörn */
+  box-shadow: var(--shadow);           /* Kortliknande skuggning */
+  display: flex;
+  justify-content: space-between;      /* Dela upp innehåll horisontellt */
+  align-items: center;
+}
+
+li a {
+  margin-right: 15px;
+  font-weight: 600;
+  color: var(--accent-color);          /* Länk i accentfärg */
+}
+
+li a:hover {
+  text-decoration: underline;          /* Understrykning vid hover */
+}
+
+/* === TEXT === */
+p {
+  margin: 10px 0;
+}
+
+/* === CONTAINER === */
+/* En wrapper för att ge sidans innehåll luft från kanterna */
+.container {
+  padding: 0 5vw;
 }
