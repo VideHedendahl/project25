@@ -48,12 +48,18 @@ get('/protected/products/saved') do
 end
 
 get('/protected/products/new') do
-    slim(:"products/new")
+  db = connect_to_db('db/chinook-crud.db')
+  result = db.execute("SELECT * FROM companies")
+  
+  slim(:"products/new",locals:{companies:result})
 end
 
 post('/products/new') do
   title = params[:title]
   company_id = params[:company_id].to_i
+
+
+  
   db = connect_to_db('db/chinook-crud.db')
   db.execute("INSERT INTO products (Title, CompanyId) VALUES (?,?)",[title, company_id])
   redirect('/products')
@@ -112,7 +118,7 @@ post('/users/new') do
         db.execute("INSERT INTO users (username,pwdigest) VALUES (?,?)",[username,password_digest])
         redirect('/registrera')
     else
-        "Lösenorden matchade inte"
+      slim(:"pwEror")
     end
 end
 
@@ -133,7 +139,7 @@ post('/login') do
         session[:id] = id
         redirect('/')
     else
-        "FEL LÖSEN"
+      slim(:"pwEror")
     end
 end
 

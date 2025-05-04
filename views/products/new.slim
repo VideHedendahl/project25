@@ -1,4 +1,12 @@
- form action="/products/new" method="post"
+form action="/products/new" method="post"
     input type="text" name="title" placeholder="Titel på produkt"
     input type="text" name="company_id" placeholder="id för leverantör"
     input type="submit" value="Skapa produkt"
+
+h1 leverantörer:
+    
+ol
+   - companies.each do |company|
+      li 
+         p Leverantör: #{company['Name']}
+         p ID: #{company['CompanyId']}
